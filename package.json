@@ -12,6 +12,9 @@
   },
   "private": true,
   "dependencies": {
+    "express": "latest",
+    "path": "latest",
+    "body-parser": "latest",
     "@angular/animations": "^5.0.0",
     "@angular/common": "^5.0.0",
     "@angular/compiler": "^5.0.0",
