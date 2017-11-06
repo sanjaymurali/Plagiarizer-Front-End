@@ -13,7 +13,7 @@ export class UploadService {
 
 
   upload(data) {
-    const req = new HttpRequest('POST', 'http://localhost:8080/upload', data, {
+    const req = new HttpRequest('POST', 'https://plagiarizer-backend.herokuapp.com/upload', data, {
       reportProgress: true,
     });
 
