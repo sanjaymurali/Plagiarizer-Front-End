@@ -1,0 +1,25 @@
+<div class="display-4">Upload</div>
+<br/>
+<form (ngSubmit) = "uploadFile(uploadForm)" #uploadForm="ngForm">
+  <app-error-dialog *ngIf="uploadError"></app-error-dialog>
+  <fieldset>
+    <div class="form-group">
+      <label for="name">Student Name</label>
+      <input type="text" id="name" name="name" class="form-control" ngModel>
+    </div>
+    <div class="form-group">
+      <label for="upload">Upload file(s)</label>
+      <input type="file"
+             id="upload"
+             name="upload"
+             class="form-control"
+             multiple="true"
+             #files
+             (change)="fileChanges($event)">
+    </div>
+
+    <app-upload-progress *ngIf="showProgress"></app-upload-progress>
+
+    <input type="submit" class="form-control btn btn-primary w-100">
+  </fieldset>
+</form>

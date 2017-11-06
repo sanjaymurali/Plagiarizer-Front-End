@@ -1,4 +1,3 @@
-
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -27,7 +26,7 @@ app.get('*', function (req, res) {
 
 //#endregion: routes
 
-const port = process.env.PORT || '3100';
+const port = process.env.PORT || '3000';
 app.set('port', port);
 
 app.listen(port);

@@ -1,5 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
 
 import {appRoutesModule} from './app.routes';
 
@@ -9,6 +12,10 @@ import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { UploadComponent } from './components/upload/upload.component';
+import { UploadProgressComponent } from './components/shared/upload-progress/upload-progress.component';
+import { ErrorDialogComponent } from './components/shared/error-dialog/error-dialog.component';
+import {ProgressService} from "./services/progress.service";
 
 
 @NgModule({
@@ -18,13 +25,18 @@ import { RegisterComponent } from './components/register/register.component';
     NavbarComponent,
     FooterComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    UploadComponent,
+    UploadProgressComponent,
+    ErrorDialogComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+    FormsModule,
     appRoutesModule
   ],
-  providers: [],
+  providers: [ProgressService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

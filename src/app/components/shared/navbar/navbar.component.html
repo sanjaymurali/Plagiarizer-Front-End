@@ -11,6 +11,7 @@
   <a class="navbar-brand" [routerLink]="['']">Plagiarizer</a>
 
   <div class="collapse navbar-collapse pb-3 pb-lg-0" id="navbar-content">
+    <ul class="navbar-nav mr-auto"></ul> <!-- to push everything to right  -->
     <ul class="navbar-nav ml-4">
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['login']">Login</a>
@@ -24,8 +25,9 @@
 
     <ul class="navbar-nav ml-4">
       <li class="nav-item">
-        <a class="nav-link" href="#">Upload</a>
+        <a class="nav-link" [routerLink]="['upload']">Upload</a>
       </li>
     </ul>
+
   </div>
 </nav>

@@ -2,6 +2,7 @@ import {RouterModule, Routes} from '@angular/router';
 import { LandingComponent } from './components/landing/landing.component';
 import {LoginComponent} from './components/login/login.component';
 import {RegisterComponent} from './components/register/register.component';
+import {UploadComponent} from "./components/upload/upload.component";
 
 const appRoutes: Routes = [
   {
@@ -12,9 +13,10 @@ const appRoutes: Routes = [
     path: 'register',
     component: RegisterComponent
   },
-  // {
-  //   path: 'upload'
-  // },
+  {
+    path: 'upload',
+    component: UploadComponent
+  },
   {
     path: '',
     component: LandingComponent

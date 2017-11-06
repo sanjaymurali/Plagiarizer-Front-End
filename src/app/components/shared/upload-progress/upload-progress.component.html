@@ -1,0 +1,6 @@
+<div *ngIf="!fileUploaded">
+  <div id="upload-progress" class="progress">
+    <div class="progress-bar progress-bar-striped bg-warning" [style.width]="percentDone +'%'" role="progressbar" [attr.aria-valuenow]="percentDone + '%'" aria-valuemin="0" aria-valuemax="100%">{{percentDone}}%</div>
+  </div>
+  <br/>
+</div>

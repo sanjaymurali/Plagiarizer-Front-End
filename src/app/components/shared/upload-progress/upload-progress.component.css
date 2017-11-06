@@ -1,0 +1,8 @@
+#upload-progress {
+  height: 20px;
+}
+
+#upload-progress .progress-bar {
+  height: 20px;
+  line-height: 18px;
+}
