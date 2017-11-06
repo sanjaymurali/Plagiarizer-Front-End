@@ -780,7 +780,7 @@ var UploadService = (function () {
     //     .post('http://localhost:8080/upload', data);
     // }
     UploadService.prototype.upload = function (data) {
-        var req = new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["d" /* HttpRequest */]('POST', 'http://localhost:8080/upload', data, {
+        var req = new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["d" /* HttpRequest */]('POST', 'https://plagiarizer-backend.herokuapp.com/upload', data, {
             reportProgress: true,
         });
         return this.$http.request(req);
