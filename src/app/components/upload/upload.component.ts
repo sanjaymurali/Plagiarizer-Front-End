@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UploadService } from '../../services/upload.service';
 import {ProgressService} from '../../services/progress.service';
+import {isUndefined} from "util";
 
 @Component({
   selector: 'app-upload',
@@ -13,7 +14,9 @@ export class UploadComponent implements OnInit {
 
   private formData = new FormData();
   uploadError: Boolean = false;
+  uploadSuccess: Boolean = false;
   showProgress: Boolean = false;
+  message: String = '';
 
   constructor(private uploadService: UploadService, private progressService: ProgressService) { }
 
@@ -26,13 +29,25 @@ export class UploadComponent implements OnInit {
       .subscribe(
         res => {
           this.showProgress = true;
+
+          // to make sure that we set the flags after the file gets completely uploaded
+          if (!isUndefined(res['body'])) {
+            this.uploadSuccess = true;
+            this.message = res['body']['message'];
+          }
           this.progressService.pushData(res);
         },
         err => {
           this.uploadError = true;
           this.showProgress = false;
-          console.log('error', err);
+          if (!isUndefined(err['error'])) {
+            this.message = err['error']['message'];
+          } else {
+            this.message = 'Error Uploading the file(s)';
+          }
         });
+
+    this.resetForm(uploadForm);
 
   }
 
@@ -40,6 +55,14 @@ export class UploadComponent implements OnInit {
     for (let i = 0; i < event.target.files.length; i++) {
       this.formData.append('files', event.target.files[i]);
     }
+  }
+
+  resetForm(form: NgForm) {
+    form.reset();
+    this.formData = new FormData();
+    this.uploadSuccess = false;
+    this.uploadError = false;
+
   }
 
 }

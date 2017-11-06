@@ -1,12 +1,21 @@
 <div class="display-4">Upload</div>
 <br/>
-<form (ngSubmit) = "uploadFile(uploadForm)" #uploadForm="ngForm">
-  <app-error-dialog *ngIf="uploadError"></app-error-dialog>
+<form (ngSubmit) = "uploadFile(uploadForm)" #uploadForm="ngForm" novalidate>
+  <app-alerts [success]="uploadSuccess" [error]="uploadError" [message]="message"></app-alerts>
   <fieldset>
+
     <div class="form-group">
       <label for="name">Student Name</label>
-      <input type="text" id="name" name="name" class="form-control" ngModel>
+      <input type="text"
+             id="name"
+             name="name"
+             class="form-control"
+             ngModel
+             #nameField = "ngModel"
+             [ngClass]="{'border-danger': !nameField.valid && nameField.touched}"
+             required />
     </div>
+
     <div class="form-group">
       <label for="upload">Upload file(s)</label>
       <input type="file"
@@ -14,12 +23,12 @@
              name="upload"
              class="form-control"
              multiple="true"
-             #files
+             ngModel
              (change)="fileChanges($event)">
     </div>
 
     <app-upload-progress *ngIf="showProgress"></app-upload-progress>
 
-    <input type="submit" class="form-control btn btn-primary w-100">
+    <button type="submit" [disabled]="!uploadForm.valid" class="btn btn-primary btn-block w-100">Submit</button>
   </fieldset>
 </form>

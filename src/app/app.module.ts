@@ -14,9 +14,9 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { UploadComponent } from './components/upload/upload.component';
 import { UploadProgressComponent } from './components/shared/upload-progress/upload-progress.component';
-import { ErrorDialogComponent } from './components/shared/error-dialog/error-dialog.component';
-import {ProgressService} from "./services/progress.service";
+import { AlertsComponent } from './components/shared/alerts/alerts.component';
 
+import {ProgressService} from './services/progress.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +28,7 @@ import {ProgressService} from "./services/progress.service";
     RegisterComponent,
     UploadComponent,
     UploadProgressComponent,
-    ErrorDialogComponent
+    AlertsComponent
   ],
   imports: [
     BrowserModule,
