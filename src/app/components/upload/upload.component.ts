@@ -1,8 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UploadService } from '../../services/upload.service';
-import {ProgressService} from '../../services/progress.service';
-import {isUndefined} from "util";
+import {NotifyService} from '../../services/notify.service';
+import {isUndefined} from 'util';
 
 @Component({
   selector: 'app-upload',
@@ -13,12 +13,10 @@ import {isUndefined} from "util";
 export class UploadComponent implements OnInit {
 
   private formData = new FormData();
-  uploadError: Boolean = false;
-  uploadSuccess: Boolean = false;
   showProgress: Boolean = false;
   message: String = '';
 
-  constructor(private uploadService: UploadService, private progressService: ProgressService) { }
+  constructor(private uploadService: UploadService, private notifyService: NotifyService) { }
 
   ngOnInit() {
   }
@@ -32,22 +30,32 @@ export class UploadComponent implements OnInit {
 
           // to make sure that we set the flags after the file gets completely uploaded
           if (!isUndefined(res['body'])) {
-            this.uploadSuccess = true;
-            this.message = res['body']['message'];
+            const data = {
+              success: true,
+              error: false,
+              message: res['body']['message']
+            };
+            this.notifyService.pushAlertData(data);
           }
-          this.progressService.pushData(res);
+          this.notifyService.pushProgressData(res);
         },
         err => {
-          this.uploadError = true;
+
+          let message = '';
           this.showProgress = false;
           if (!isUndefined(err['error'])) {
-            this.message = err['error']['message'];
+            message = err['error']['message'];
           } else {
-            this.message = 'Error Uploading the file(s)';
+            message = 'Error Uploading the file(s)';
           }
-        });
-
-    this.resetForm(uploadForm);
+          const data = {
+            success: false,
+            error: true,
+            message: message
+          };
+          this.notifyService.pushAlertData(data);
+          this.resetForm(uploadForm);
+        }, () => this.resetForm(uploadForm));
 
   }
 
@@ -60,9 +68,6 @@ export class UploadComponent implements OnInit {
   resetForm(form: NgForm) {
     form.reset();
     this.formData = new FormData();
-    this.uploadSuccess = false;
-    this.uploadError = false;
-
   }
 
 }

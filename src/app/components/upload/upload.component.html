@@ -1,7 +1,9 @@
 <div class="display-4">Upload</div>
 <br/>
+
 <form (ngSubmit) = "uploadFile(uploadForm)" #uploadForm="ngForm" novalidate>
-  <app-alerts [success]="uploadSuccess" [error]="uploadError" [message]="message"></app-alerts>
+  <app-alerts></app-alerts>
+
   <fieldset>
 
     <div class="form-group">

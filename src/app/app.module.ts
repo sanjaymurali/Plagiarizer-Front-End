@@ -16,7 +16,7 @@ import { UploadComponent } from './components/upload/upload.component';
 import { UploadProgressComponent } from './components/shared/upload-progress/upload-progress.component';
 import { AlertsComponent } from './components/shared/alerts/alerts.component';
 
-import {ProgressService} from './services/progress.service';
+import {NotifyService} from './services/notify.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,7 @@ import {ProgressService} from './services/progress.service';
     FormsModule,
     appRoutesModule
   ],
-  providers: [ProgressService],
+  providers: [NotifyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {NotifyService} from '../../../services/notify.service';
 
 @Component({
   selector: 'app-alerts',
@@ -7,14 +8,19 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class AlertsComponent implements OnInit {
 
-  @Input() success: Boolean = false;
-  @Input() error: Boolean = false;
-  @Input() message: String = '';
+  success: Boolean = false;
+  error: Boolean = false;
+  message: String = '';
 
-  constructor() { }
+  constructor(private alertService: NotifyService) { }
 
   ngOnInit() {
-
+    this.alertService.alertData$.subscribe(res => {
+      this.success = res['success'];
+      this.error = res['error'];
+      this.message = res['message'];
+    }, err => console.log('Error in Alert Component: ', err));
   }
+
 
 }

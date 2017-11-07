@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ProgressService} from '../../../services/progress.service';
+import {NotifyService} from '../../../services/notify.service';
 import {HttpEventType, HttpResponse} from '@angular/common/http';
 
 @Component({
@@ -12,11 +12,11 @@ export class UploadProgressComponent implements OnInit {
   percentDone: Number;
   fileUploaded: Boolean = false;
 
-  constructor(private progressService: ProgressService) { }
+  constructor(private progressService: NotifyService) { }
 
   ngOnInit() {
 
-    this.progressService.psData$.subscribe(event => {
+    this.progressService.progressData$.subscribe(event => {
       if (event['type'] === HttpEventType.UploadProgress) {
         // This is an upload progress event. Compute and show the % done:
         this.percentDone = Math.round(100 * event['loaded'] / event['total']);
