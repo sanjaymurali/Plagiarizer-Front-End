@@ -17,6 +17,11 @@ import { UploadProgressComponent } from './components/shared/upload-progress/upl
 import { AlertsComponent } from './components/shared/alerts/alerts.component';
 
 import {NotifyService} from './services/notify.service';
+import { ShowUploadedFilesComponent } from './components/show-uploaded-files/show-uploaded-files.component';
+import { CompareComponent } from './components/compare/compare.component';
+import {AssignmentService} from "./services/assignment.service";
+import { SelectStudentComponent } from './components/select-student/select-student.component';
+import { PreviewFileComponent } from './components/preview-file/preview-file.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +33,11 @@ import {NotifyService} from './services/notify.service';
     RegisterComponent,
     UploadComponent,
     UploadProgressComponent,
-    AlertsComponent
+    AlertsComponent,
+    ShowUploadedFilesComponent,
+    CompareComponent,
+    SelectStudentComponent,
+    PreviewFileComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +45,7 @@ import {NotifyService} from './services/notify.service';
     FormsModule,
     appRoutesModule
   ],
-  providers: [NotifyService],
+  providers: [NotifyService, AssignmentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -18,6 +18,7 @@ export class UploadProgressComponent implements OnInit {
 
     this.progressService.progressData$.subscribe(event => {
       if (event['type'] === HttpEventType.UploadProgress) {
+        this.fileUploaded = false;
         // This is an upload progress event. Compute and show the % done:
         this.percentDone = Math.round(100 * event['loaded'] / event['total']);
       } else if (event instanceof HttpResponse) {

@@ -1,0 +1,29 @@
+<div *ngIf="noSubmissions;then notifyUser else showFormSelection"></div>
+
+<ng-template #notifyUser>
+  <div class="my-3">
+    <div class="alert alert-danger" role="alert">
+      No Submissions Found! Please Upload: <a [routerLink]="['/upload']">Here</a>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #showFormSelection>
+  <div class="my-3">
+    <div class="dropdown mt-2">
+      <button class="btn btn-primary form-control"
+              type="button"
+              data-toggle="dropdown">
+        <span class="fa fa-caret-down pull-right mr-3"></span>
+        --- Select Student ---
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item"
+           *ngFor="let submission of assignment"
+           (click)="selectedStudent(submission['studentID'])">{{submission.studentName}}</a>
+      </div>
+    </div>
+
+    <app-show-uploaded-files [studentID]="submission"></app-show-uploaded-files>
+  </div>
+</ng-template>

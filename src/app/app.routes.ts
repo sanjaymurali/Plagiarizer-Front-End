@@ -3,6 +3,9 @@ import { LandingComponent } from './components/landing/landing.component';
 import {LoginComponent} from './components/login/login.component';
 import {RegisterComponent} from './components/register/register.component';
 import {UploadComponent} from "./components/upload/upload.component";
+import {CompareComponent} from "./components/compare/compare.component";
+import {ShowUploadedFilesComponent} from "./components/show-uploaded-files/show-uploaded-files.component";
+import {SelectStudentComponent} from "./components/select-student/select-student.component";
 
 const appRoutes: Routes = [
   {
@@ -16,6 +19,10 @@ const appRoutes: Routes = [
   {
     path: 'upload',
     component: UploadComponent
+  },
+  {
+    path: 'select',
+    component: SelectStudentComponent
   },
   {
     path: '',
