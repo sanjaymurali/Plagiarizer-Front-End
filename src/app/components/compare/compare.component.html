@@ -1,3 +1,12 @@
-<p>
-  compare works!
-</p>
+<div class="row">
+  <div class="col-md-6 border-right">
+    <app-select-student (Emitter)="firstSubmission($event)" [disableStudent]="studentName2"></app-select-student>
+  </div>
+  <div class="col-md-6">
+    <app-select-student (Emitter)="secondSubmission($event)" [disableStudent]="studentName1"></app-select-student>
+  </div>
+</div>
+
+<button type="button" [disabled]="disableCompareCheck()" class="mx-auto btn w-50 btn-primary btn-block mb-3" (click)="compare()">
+  Compare
+</button>

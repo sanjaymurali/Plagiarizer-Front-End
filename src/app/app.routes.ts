@@ -22,7 +22,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'select',
-    component: SelectStudentComponent
+    component: CompareComponent
   },
   {
     path: '',

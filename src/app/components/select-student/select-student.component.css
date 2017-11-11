@@ -2,3 +2,7 @@
   width: 100%;
   text-align: center;
 }
+
+#student-dropdown a:hover {
+  background-color: #3498DB;
+}

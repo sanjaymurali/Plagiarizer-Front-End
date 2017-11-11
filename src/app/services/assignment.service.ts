@@ -24,6 +24,4 @@ export class AssignmentService {
     queryParams = queryParams.append('fileName', fileName);
     return this.$http.get(this.BASE_URL + 'submission', {params: queryParams});
   }
-
-
 }

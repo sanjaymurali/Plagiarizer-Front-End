@@ -14,16 +14,22 @@
       <button class="btn btn-primary form-control"
               type="button"
               data-toggle="dropdown">
-        <span class="fa fa-caret-down pull-right mr-3"></span>
+        <span class="fa fa-caret-down pull-right mr-1 my-1"></span>
         --- Select Student ---
       </button>
-      <div class="dropdown-menu">
+      <div id="student-dropdown" class="dropdown-menu">
+        <div  *ngFor="let submission of assignment">
         <a class="dropdown-item"
-           *ngFor="let submission of assignment"
-           (click)="selectedStudent(submission['studentID'])">{{submission.studentName}}</a>
+           (click)="selectedStudent(submission['studentID'])">
+          {{submission.studentName}}
+          <span *ngIf="showStudentName(submission.studentName)">
+            [Student Selected]
+          </span>
+        </a>
+        </div>
       </div>
     </div>
 
-    <app-show-uploaded-files [studentID]="submission"></app-show-uploaded-files>
+    <app-show-uploaded-files [studentID]="submission" (emitSelectedStudent)="emitToParent($event)"></app-show-uploaded-files>
   </div>
 </ng-template>

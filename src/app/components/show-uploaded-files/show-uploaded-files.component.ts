@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {AssignmentService} from '../../services/assignment.service';
 
 @Component({
@@ -9,10 +9,11 @@ import {AssignmentService} from '../../services/assignment.service';
 export class ShowUploadedFilesComponent implements OnChanges, OnInit {
 
   submission: any;
+  selectedStudent: any;
+  @Output() emitSelectedStudent: EventEmitter<any> = new EventEmitter<any>();
   @Input() studentID: Number;
 
   selectedFileForPreview: {studentID: Number, fileName: string};
-
 
   constructor(private assignmentService: AssignmentService) {
   }
@@ -23,13 +24,20 @@ export class ShowUploadedFilesComponent implements OnChanges, OnInit {
 
   ngOnChanges(changes) {
     if (!changes.studentID.firstChange) {
+      this.submission = [];
+      this.selectedStudent = {
+        studentID: 0,
+        fileNames: []
+      }
       const studentID = changes.studentID.currentValue;
       this.assignmentService.getSubmission(studentID)
         .subscribe(res => {
           this.submission = res;
+          this.emitSelectedStudent.emit({
+            'studentName': this.submission.studentName
+          });
         }, err => console.log(err));
     }
-
   }
 
   showPreview(fileName: string) {
@@ -39,7 +47,20 @@ export class ShowUploadedFilesComponent implements OnChanges, OnInit {
     };
   }
 
-  selectedFiles(studentID: number, fileName: string) {
+  selectedFiles(studentID: Number, fileName: string) {
+      this.selectedStudent.studentID = studentID;
+      const indexOfFileName = this.selectedStudent
+                                  .fileNames
+                                  .findIndex(filename => {
+                                    return filename === fileName;
+                                  });
+      if (indexOfFileName === -1) { // add file to the array
+        this.selectedStudent.fileNames.push(fileName);
+      } else {
+        this.selectedStudent.fileNames.splice(indexOfFileName, 1);
+      }
+
+      this.emitSelectedStudent.emit(this.selectedStudent);
 
   }
 

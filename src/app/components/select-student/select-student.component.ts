@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AssignmentService} from '../../services/assignment.service';
 
 @Component({
@@ -11,7 +11,9 @@ export class SelectStudentComponent implements OnInit {
   assignment: any;
   submission: Number;
   noSubmissions: Boolean;
+
   @Input() disableStudent: string;
+  @Output() Emitter: EventEmitter<any> = new EventEmitter();
 
   constructor(private assignmentService: AssignmentService) { }
 
@@ -27,14 +29,22 @@ export class SelectStudentComponent implements OnInit {
       }
 
     }, err => console.log(err));
-
-
-
   }
 
   selectedStudent(student) {
     const studentID: Number = student;
     this.submission = studentID;
+  }
+
+  showStudentName(name: string) {
+    if (name === this.disableStudent) {
+      return true;
+    }
+    return false;
+  }
+
+  emitToParent(event) {
+    this.Emitter.emit(event);
   }
 
 }
