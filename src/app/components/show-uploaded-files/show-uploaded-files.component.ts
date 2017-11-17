@@ -1,67 +1,57 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {
+    Component, Input, OnChanges, OnInit, ChangeDetectorRef, ChangeDetectionStrategy, Output,
+    EventEmitter
+} from '@angular/core';
 import {AssignmentService} from '../../services/assignment.service';
+import {NotifyService} from '../../services/notify.service';
 
 @Component({
-  selector: 'app-show-uploaded-files',
-  templateUrl: './show-uploaded-files.component.html',
-  styleUrls: ['./show-uploaded-files.component.css']
+    selector: 'app-show-uploaded-files',
+    templateUrl: './show-uploaded-files.component.html',
+    styleUrls: ['./show-uploaded-files.component.css']
 })
 export class ShowUploadedFilesComponent implements OnChanges, OnInit {
 
-  submission: any;
-  selectedStudent: any;
-  @Output() emitSelectedStudent: EventEmitter<any> = new EventEmitter<any>();
-  @Input() studentID: Number;
+    selectedStudent: { 'studentID': number, 'fileNames': string[] };
+    currentSubmission: any;
 
-  selectedFileForPreview: {studentID: Number, fileName: string};
+    @Input() submission: any;
+    @Output() selectedFilesEmitter: EventEmitter<any> = new EventEmitter(true);
 
-  constructor(private assignmentService: AssignmentService) {
-  }
-
-  ngOnInit() {
-
-  }
-
-  ngOnChanges(changes) {
-    if (!changes.studentID.firstChange) {
-      this.submission = [];
-      this.selectedStudent = {
-        studentID: 0,
-        fileNames: []
-      }
-      const studentID = changes.studentID.currentValue;
-      this.assignmentService.getSubmission(studentID)
-        .subscribe(res => {
-          this.submission = res;
-          this.emitSelectedStudent.emit({
-            'studentName': this.submission.studentName
-          });
-        }, err => console.log(err));
+    constructor(private notifyService: NotifyService, private assignmentService: AssignmentService) {
     }
-  }
 
-  showPreview(fileName: string) {
-    this.selectedFileForPreview = {
-      studentID: this.studentID,
-      fileName: fileName
-    };
-  }
+    ngOnInit() {
+    }
 
-  selectedFiles(studentID: Number, fileName: string) {
-      this.selectedStudent.studentID = studentID;
-      const indexOfFileName = this.selectedStudent
-                                  .fileNames
-                                  .findIndex(filename => {
-                                    return filename === fileName;
-                                  });
-      if (indexOfFileName === -1) { // add file to the array
-        this.selectedStudent.fileNames.push(fileName);
-      } else {
-        this.selectedStudent.fileNames.splice(indexOfFileName, 1);
-      }
+    ngOnChanges(changes) {
+        this.currentSubmission = changes.submission.currentValue;
+        this.selectedStudent = {
+            studentID: this.currentSubmission['studentID'],
+            fileNames: []
+        };
+    }
 
-      this.emitSelectedStudent.emit(this.selectedStudent);
+    showPreview(fileName: string) {
 
-  }
+        const selectedFileForPreview = {
+            fileName: fileName,
+            studentID: this.currentSubmission.studentID + ''
+        };
+
+        this.notifyService.pushPreviewData(selectedFileForPreview);
+    }
+
+    selectedFiles(fileName: string) {
+
+        const indexOfFileName = this.selectedStudent.fileNames.findIndex(filename => filename === fileName);
+        if (indexOfFileName === -1) { // add file to the array
+            this.selectedStudent.fileNames.push(fileName);
+        } else {
+            this.selectedStudent.fileNames.splice(indexOfFileName, 1);
+        }
+
+        this.selectedFilesEmitter.emit(this.selectedStudent);
+    }
 
 }

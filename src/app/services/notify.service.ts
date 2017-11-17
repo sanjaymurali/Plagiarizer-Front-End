@@ -4,17 +4,23 @@ import {Subject} from 'rxjs/Subject';
 @Injectable()
 export class NotifyService {
 
-  private progressData = new Subject();
-  private alertData = new Subject();
+    private progressData = new Subject();
+    private alertData = new Subject();
+    private previewFileData = new Subject();
 
-  progressData$ = this.progressData.asObservable();
-  alertData$ = this.alertData.asObservable();
+    progressData$ = this.progressData.asObservable();
+    alertData$ = this.alertData.asObservable();
+    previewFileData$ = this.previewFileData.asObservable();
 
-  public pushProgressData(data) {
-    this.progressData.next(data);
-  }
+    public pushProgressData(data) {
+        this.progressData.next(data);
+    }
 
-  public pushAlertData(data) {
-    this.alertData.next(data);
-  }
+    public pushAlertData(data) {
+        this.alertData.next(data);
+    }
+
+    public pushPreviewData(data) {
+        this.previewFileData.next(data);
+    }
 }

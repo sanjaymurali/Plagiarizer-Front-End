@@ -1,8 +1,10 @@
 .dropdown-menu {
-  width: 100%;
-  text-align: center;
+    width: 100%;
+    text-align: center;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 
 #student-dropdown a:hover {
-  background-color: #3498DB;
+    background-color: #3498DB;
 }

@@ -1,31 +1,33 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, AfterViewInit} from '@angular/core';
 import {AssignmentService} from '../../services/assignment.service';
+import {NotifyService} from "../../services/notify.service";
+import "rxjs/add/operator/mergeMap";
+import "rxjs/add/operator/do";
 
 @Component({
-  selector: 'app-preview-file',
-  templateUrl: './preview-file.component.html',
-  styleUrls: ['./preview-file.component.css']
+    selector: 'app-preview-file',
+    templateUrl: './preview-file.component.html',
+    styleUrls: ['./preview-file.component.css']
 })
-export class PreviewFileComponent implements OnInit, OnChanges {
+export class PreviewFileComponent implements OnInit {
 
-  @Input() selectedFile: any;
-  fileContent: any;
+    previewData: { fileContent: string, fileName: string } = {
+        fileContent: '',
+        fileName: ''
+    };
 
-  constructor(private assignmentService: AssignmentService) { }
-
-  ngOnInit() {
-  }
-
-  ngOnChanges(changes) {
-    if (!changes.selectedFile.firstChange) {
-      const currentValue = changes.selectedFile.currentValue;
-      const studentID: string = currentValue.studentID + '';
-      const fileName: string = currentValue.fileName;
-      this.assignmentService.getFile(studentID, fileName)
-        .subscribe(res => {
-          this.fileContent = res;
-        } , err => console.log(err));
+    constructor(private notifyService: NotifyService, private assignmentService: AssignmentService) {
     }
-  }
 
+    ngOnInit() {
+        let temp = {};
+        this.notifyService
+            .previewFileData$
+            .do(response => temp = response)
+            .flatMap(response => this.assignmentService.getFile(temp['studentID'], temp['fileName']))
+            .subscribe(res => {
+                this.previewData.fileName = temp['fileName'];
+                this.previewData.fileContent = res + '';
+            }, err => console.log(err));
+    }
 }

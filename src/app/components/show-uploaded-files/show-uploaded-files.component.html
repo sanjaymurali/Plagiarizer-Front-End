@@ -1,30 +1,17 @@
 <div class="my-5">
-  <div class="display-4 mb-5">Files of {{submission?.studentName}}</div>
 
-  <ul class="list-group">
-    <li *ngFor="let fileName of submission?.fileNames" class="list-group-item">
-      <span class="">
-       <input type="checkbox" (change)="selectedFiles(studentID, fileName)"> &nbsp;
-        {{fileName}}
-      </span>
-      <span class="">
+    <ul class="list-group">
+        <li *ngFor="let fileName of currentSubmission?.fileNames; let i = index" class="list-group-item">
 
-      </span>
-      <span class="float-right">
-        <a (click)="showPreview(fileName)" data-toggle="modal" data-target="#fileModal">[Preview]</a>
-      </span>
-    </li>
-  </ul>
-  <div class="mt-2 ml-4 text-info">
-    {{selectedStudent?.fileNames.length}} files selected of {{submission?.studentName}}
-  </div>
+       <input type="checkbox" (change)="selectedFiles(fileName)"
+              [checked]="selectedStudent.fileNames.indexOf(fileName) > -1"> &nbsp;
+        <a (click)="selectedFiles(fileName)" class="mouse-pointer">{{fileName}}</a>
+            <span class="float-right">
+        <a (click)="showPreview(fileName)" data-toggle="modal" data-target="#fileModal" href>[Preview]</a>
+            </span>
+        </li>
+    </ul>
+    <div class="mt-2 ml-4 text-info">
+        {{selectedStudent?.fileNames.length}} files selected of {{currentSubmission?.studentName}}
+    </div>
 </div>
-
-
-
-<app-preview-file
-  [selectedFile]="selectedFileForPreview">
-
-</app-preview-file>
-
-

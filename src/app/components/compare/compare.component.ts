@@ -1,52 +1,81 @@
-import { Component, OnInit } from '@angular/core';
+import {
+    AfterContentChecked,
+    AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, OnChanges, OnInit, QueryList,
+    ViewChild,
+    ViewChildren
+} from '@angular/core';
 import {AssignmentService} from '../../services/assignment.service';
+import {SelectStudentComponent} from "../select-student/select-student.component";
+import {ActivatedRoute} from "@angular/router";
+import {ShowUploadedFilesComponent} from "../show-uploaded-files/show-uploaded-files.component";
+import {isUndefined} from "util";
 
 @Component({
-  selector: 'app-compare',
-  templateUrl: './compare.component.html',
-  styleUrls: ['./compare.component.css']
+    selector: 'app-compare',
+    templateUrl: './compare.component.html',
+    styleUrls: ['./compare.component.css']
 })
 export class CompareComponent implements OnInit {
 
-  firstSubmissionSelected: any;
-  secondSubmissionSelected: any;
-  studentName1: String;
-  studentName2: String;
+    selectedStudent1: any;
+    selectedStudent2: any;
 
-  constructor(private assignmentService: AssignmentService) { }
+    selectedFiles1: any;
+    selectedFiles2: any;
 
-  ngOnInit() {
-  }
+    compareCheck: boolean = true;
 
-  firstSubmission(event) {
-    if (event.studentName) {
-      this.studentName1 = event.studentName;
-    } else {
-      this.firstSubmissionSelected = event;
+    constructor(private assignmentService: AssignmentService, private route: ActivatedRoute) {
     }
-  }
 
-  secondSubmission(event) {
-    if (event.studentName) {
-      this.studentName2 = event.studentName;
-    } else {
-      this.secondSubmissionSelected = event;
+    ngOnInit() {
+        this.assignmentService.setAssignmentLocally(this.route.snapshot.data.assignment);
+        this.disableCompareCheck(this.selectedFiles1, this.selectedFiles2);
     }
-  }
 
-  disableCompareCheck() {
-    if (this.firstSubmissionSelected && this.secondSubmissionSelected) {
-      const firstLength = this.firstSubmissionSelected.fileNames.length;
-      const secondLength = this.secondSubmissionSelected.fileNames.length;
-      if (firstLength !== 0 && secondLength !== 0) {
-        return false;
-      }
+    fromFirstComponentStudentID(event) {
+        this.selectedStudent1 = event;
+        this.selectedFiles1 = null;
+        this.disableCompareCheck(this.selectedFiles1, this.selectedFiles2);
     }
-    return true;
-  }
 
-  compare() {
-    console.log(this.firstSubmissionSelected , ' ' , this.secondSubmissionSelected);
-  }
+    fromFirstComponentSelectedFile(event) {
+        this.selectedFiles1 = event;
 
+        this.disableCompareCheck(this.selectedFiles1, this.selectedFiles2);
+    }
+
+    fromSecondComponentStudentID(event) {
+        this.selectedStudent2 = event;
+        this.selectedFiles2 = null;
+        this.disableCompareCheck(this.selectedFiles1, this.selectedFiles2);
+    }
+
+    fromSecondComponentSelectedFile(event) {
+
+        this.selectedFiles2 = event;
+
+        this.disableCompareCheck(this.selectedFiles1, this.selectedFiles2);
+    }
+
+    disableCompareCheck(files1, files2) {
+        if (!files1) {
+            this.compareCheck = true;
+        } else if (!files2) {
+            this.compareCheck = true;
+        } else {
+            const firstLength = files1.fileNames.length;
+            const secondLength = files2.fileNames.length;
+            if (firstLength !== 0 && secondLength !== 0) {
+                this.compareCheck = false;
+            } else {
+                this.compareCheck = true;
+            }
+        }
+    }
+
+    compare() {
+
+        // Wire here to hit the backend
+    }
 }

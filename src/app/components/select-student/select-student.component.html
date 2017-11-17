@@ -1,35 +1,42 @@
-<div *ngIf="noSubmissions;then notifyUser else showFormSelection"></div>
-
-<ng-template #notifyUser>
-  <div class="my-3">
-    <div class="alert alert-danger" role="alert">
-      No Submissions Found! Please Upload: <a [routerLink]="['/upload']">Here</a>
-    </div>
-  </div>
-</ng-template>
-
-<ng-template #showFormSelection>
-  <div class="my-3">
-    <div class="dropdown mt-2">
-      <button class="btn btn-primary form-control"
-              type="button"
-              data-toggle="dropdown">
-        <span class="fa fa-caret-down pull-right mr-1 my-1"></span>
-        --- Select Student ---
-      </button>
-      <div id="student-dropdown" class="dropdown-menu">
-        <div  *ngFor="let submission of assignment">
-        <a class="dropdown-item"
-           (click)="selectedStudent(submission['studentID'])">
-          {{submission.studentName}}
-          <span *ngIf="showStudentName(submission.studentName)">
-            [Student Selected]
-          </span>
-        </a>
+<div *ngIf="noSubmissions">
+    <div class="my-3">
+        <div class="alert alert-danger" role="alert">
+            No Submissions Found! Please Upload: <a [routerLink]="['/upload']">Here</a>
         </div>
-      </div>
     </div>
+</div>
 
-    <app-show-uploaded-files [studentID]="submission" (emitSelectedStudent)="emitToParent($event)"></app-show-uploaded-files>
-  </div>
-</ng-template>
+<div *ngIf="needMoreSubmission">
+    <div class="my-3">
+        <div class="alert alert-danger" role="alert">
+           One More Submission Required! Upload <a [routerLink]="['/upload']">Here</a>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!noSubmissions && !needMoreSubmission">
+    <div class="my-3">
+        <div class="dropdown mt-2">
+            <span class="border-info" *ngIf="onlyOneToShow">
+                {{currentSubmission?.studentName}}
+            </span>
+            <button class="btn btn-info form-control"
+                    *ngIf="!onlyOneToShow"
+                    type="button"
+                    data-toggle="dropdown">
+                <span class="fa fa-caret-down pull-right mr-1 my-1"></span>
+                {{currentSubmission?.studentName}}
+            </button>
+            <div id="student-dropdown" class="dropdown-menu">
+                <div *ngFor="let submission of (assignment | filterStudent:currentSubmission?.studentID:studentSelected)">
+
+                    <a class="dropdown-item" (click)="selectedStudent(submission)">
+
+                        {{submission.studentName}}
+                    </a>
+                </div>
+            </div>
+        </div>
+        <app-show-uploaded-files [submission]="currentSubmission" (selectedFilesEmitter)="emitToParent($event)" ></app-show-uploaded-files>
+    </div>
+</div>

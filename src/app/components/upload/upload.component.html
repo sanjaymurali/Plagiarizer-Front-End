@@ -1,36 +1,36 @@
 <div class="display-4">Upload</div>
 <br/>
 
-<form (ngSubmit) = "uploadFile(uploadForm)" #uploadForm="ngForm" novalidate>
-  <app-alerts></app-alerts>
+<form (ngSubmit)="uploadFile(uploadForm)" #uploadForm="ngForm" novalidate>
+    <app-alerts></app-alerts>
 
-  <fieldset>
+    <fieldset>
 
-    <div class="form-group">
-      <label for="name">Student Name</label>
-      <input type="text"
-             id="name"
-             name="name"
-             class="form-control"
-             ngModel
-             #nameField = "ngModel"
-             [ngClass]="{'border-danger': !nameField.valid && nameField.touched}"
-             required />
-    </div>
+        <div class="form-group">
+            <label for="name">Student Name</label>
+            <input type="text"
+                   id="name"
+                   name="name"
+                   class="form-control"
+                   ngModel
+                   #nameField="ngModel"
+                   [ngClass]="{'border-danger': !nameField.valid && nameField.touched}"
+                   required/>
+        </div>
 
-    <div class="form-group">
-      <label for="upload">Upload file(s)</label>
-      <input type="file"
-             id="upload"
-             name="upload"
-             class="form-control"
-             multiple="true"
-             ngModel
-             (change)="fileChanges($event)">
-    </div>
+        <div class="form-group">
+            <label for="upload">Upload file(s)</label>
+            <input type="file"
+                   id="upload"
+                   name="upload"
+                   class="form-control"
+                   multiple="true"
+                   ngModel
+                   (change)="fileChanges($event)">
+        </div>
 
-    <app-upload-progress *ngIf="showProgress"></app-upload-progress>
+        <app-upload-progress *ngIf="showProgress"></app-upload-progress>
 
-    <button type="submit" [disabled]="!uploadForm.valid" class="btn btn-primary btn-block">Submit</button>
-  </fieldset>
+        <button type="submit" [disabled]="!uploadForm.valid" class="btn btn-primary btn-block">Submit</button>
+    </fieldset>
 </form>
