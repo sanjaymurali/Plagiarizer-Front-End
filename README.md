@@ -1,3 +1,9 @@
+To run the Application:
+
+1. Clone the repo to your local and open a Terminal/Command prompt and navigate to the path where this file exists
+2. Once you are in the root of directory "pd". 
+3. Run command "npm install"
+4. Run command "ng serve"
 # Pd
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0.
