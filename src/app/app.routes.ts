@@ -29,7 +29,7 @@ const appRoutes: Routes = [
         }
     },
     {
-        path: '',
+        path: '**',
         component: LandingComponent
     }
 ];

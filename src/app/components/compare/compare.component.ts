@@ -29,6 +29,7 @@ export class CompareComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log(this.route.snapshot.data.assignment)
         this.assignmentService.setAssignmentLocally(this.route.snapshot.data.assignment);
         this.disableCompareCheck(this.selectedFiles1, this.selectedFiles2);
     }
