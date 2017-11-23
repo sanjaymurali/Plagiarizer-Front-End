@@ -9,7 +9,7 @@
 <div *ngIf="needMoreSubmission">
     <div class="my-3">
         <div class="alert alert-danger" role="alert">
-           One More Submission Required! Upload <a [routerLink]="['/upload']">Here</a>
+            One More Submission Required! Upload <a [routerLink]="['/upload']">Here</a>
         </div>
     </div>
 </div>
@@ -28,7 +28,8 @@
                 {{currentSubmission?.studentName}}
             </button>
             <div id="student-dropdown" class="dropdown-menu">
-                <div *ngFor="let submission of (assignment | filterStudent:currentSubmission?.studentID:studentSelected)">
+                <div
+                    *ngFor="let submission of (assignment | filterStudent:currentSubmission?.studentID:studentSelected)">
 
                     <a class="dropdown-item" (click)="selectedStudent(submission)">
 
@@ -37,6 +38,7 @@
                 </div>
             </div>
         </div>
-        <app-show-uploaded-files [submission]="currentSubmission" (selectedFilesEmitter)="emitToParent($event)" ></app-show-uploaded-files>
+        <app-show-uploaded-files [submission]="currentSubmission"
+                                 (selectedFilesEmitter)="emitToParent($event)"></app-show-uploaded-files>
     </div>
 </div>

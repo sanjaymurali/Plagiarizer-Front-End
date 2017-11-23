@@ -1,19 +1,21 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {HttpClient, HttpHeaders, HttpRequest} from '@angular/common/http';
+import {isNullOrUndefined, isUndefined} from "util";
 
 @Injectable()
 export class CompareService {
     private BASE_URL = environment['BASE_URL'] || 'http://localhost:8080/';
     private _selectedStudents: any;
 
-    constructor(private $http: HttpClient) {}
+    constructor(private $http: HttpClient) {
+    }
 
     submitForComparison(student1, student2) {
         const x = {
             students: [student1, student2]
         };
-
+        localStorage.setItem('selectedStudents', JSON.stringify(x));
         this._selectedStudents = x; // setting selectedStudents to use it in other components
 
         const req = new HttpRequest('POST', this.BASE_URL + 'compare', JSON.stringify(x), {
@@ -25,7 +27,12 @@ export class CompareService {
     }
 
     get selectedStudents(): any {
-        return this._selectedStudents;
+        const selectedStudentsLocalStorage = localStorage.getItem('selectedStudents');
+        if (isUndefined(this._selectedStudents) && !isNullOrUndefined(selectedStudentsLocalStorage)) {
+            return JSON.parse(selectedStudentsLocalStorage);
+        } else {
+            return this._selectedStudents;
+        }
     }
 
     set selectedStudents(value: any) {

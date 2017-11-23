@@ -61,6 +61,7 @@ export class UploadComponent implements OnInit {
     }
 
     fileChanges(event) {
+        this.formData.delete('files');
         for (let i = 0; i < event.target.files.length; i++) {
             this.formData.append('files', event.target.files[i]);
         }

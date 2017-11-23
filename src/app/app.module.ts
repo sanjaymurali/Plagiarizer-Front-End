@@ -25,7 +25,8 @@ import {SelectStudentComponent} from './components/select-student/select-student
 import {PreviewFileComponent} from './components/preview-file/preview-file.component';
 import {FilterStudentPipe} from './pipes/filter-student.pipe';
 import {CompareService} from "./services/compare.service";
-import { ResultComponent } from './components/result/result.component';
+import {ResultComponent} from './components/result/result.component';
+import {ShowSelectedFilesComponent} from './components/show-selected-files/show-selected-files.component';
 
 @NgModule({
     declarations: [
@@ -43,7 +44,8 @@ import { ResultComponent } from './components/result/result.component';
         SelectStudentComponent,
         PreviewFileComponent,
         FilterStudentPipe,
-        ResultComponent
+        ResultComponent,
+        ShowSelectedFilesComponent
     ],
     imports: [
         BrowserModule,

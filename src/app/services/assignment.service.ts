@@ -8,7 +8,7 @@ export class AssignmentService {
 
     private assignment: any[];
     private submissions: any[];
-    
+
     constructor(private $http: HttpClient) {
     }
 

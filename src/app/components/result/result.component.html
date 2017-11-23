@@ -1,3 +1,18 @@
-<p>
-  result works!
-</p>
+<div *ngIf="noStudents">
+    <div class="my-3">
+        <div class="alert alert-danger" role="alert">
+            No Students Selected for comparison! Please Click <a [routerLink]="['/select']"> Here</a>
+        </div>
+    </div>
+</div>
+<div *ngIf="!noStudents">
+ <div class="row">
+    <app-show-selected-files class="col-md-6 border-right" [currentSubmission]="selectedStudents.students[0]"></app-show-selected-files>
+    <app-show-selected-files class="col-md-6" [currentSubmission]="selectedStudents.students[1]"></app-show-selected-files>
+ </div>
+ <span class="text-danger">Result of comparing {{selectedStudents.students[0].studentName}} and {{selectedStudents.students[1].studentName}}</span>
+    <div class="result">
+        Results here!
+    </div>
+
+</div>

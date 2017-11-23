@@ -1,23 +1,21 @@
 <div class="compare-component">
-<div class="row">
-    <div class="col-md-6 border-right">
-        <app-select-student (eventEmitterStudentID)="fromFirstComponentStudentID($event)"
-                            (eventEmitterSelectedFiles)="fromFirstComponentSelectedFile($event)"
-                            [studentSelected]="selectedStudent2"></app-select-student>
+    <div class="row">
+        <div class="col-md-6 border-right">
+            <app-select-student (eventEmitterStudentID)="fromFirstComponentStudentID($event)"
+                                (eventEmitterSelectedFiles)="fromFirstComponentSelectedFile($event)"
+                                [studentSelected]="selectedStudent2"></app-select-student>
+        </div>
+        <div class="col-md-6">
+            <app-select-student (eventEmitterStudentID)="fromSecondComponentStudentID($event)"
+                                (eventEmitterSelectedFiles)="fromSecondComponentSelectedFile($event)"
+                                [studentSelected]="selectedStudent1"></app-select-student>
+        </div>
     </div>
-    <div class="col-md-6">
-        <app-select-student (eventEmitterStudentID)="fromSecondComponentStudentID($event)"
-                            (eventEmitterSelectedFiles)="fromSecondComponentSelectedFile($event)"
-                            [studentSelected]="selectedStudent1"></app-select-student>
-    </div>
-</div>
 
-
-<app-preview-file></app-preview-file>
-
-<button type="button" class="mx-auto btn w-50 btn-primary btn-block mb-3" [disabled]="compareCheck" (click)="compare()">
-    Compare
-</button>
+    <button type="button" class="mx-auto btn w-50 btn-primary btn-block mb-3" [disabled]="compareCheck"
+            (click)="compare()">
+        Compare
+    </button>
 </div>
 
 <div *ngIf="showLoader" class="compare-loader">Loading...</div>

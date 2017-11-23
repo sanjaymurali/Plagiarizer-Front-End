@@ -22,7 +22,8 @@ export class SelectStudentComponent implements OnInit {
     needMoreSubmission: boolean;
     onlyOneToShow: boolean;
 
-    constructor(private assignmentService: AssignmentService, private filterStudent: FilterStudentPipe) {}
+    constructor(private assignmentService: AssignmentService, private filterStudent: FilterStudentPipe) {
+    }
 
     ngOnInit() {
         this.assignment = this.assignmentService.getAssignmentLocally();
@@ -30,7 +31,7 @@ export class SelectStudentComponent implements OnInit {
 
         if (!this.assignment || this.assignment.length === 0) {
             this.noSubmissions = true;
-        }  else if (!this.currentSubmission) {
+        } else if (!this.currentSubmission) {
             this.needMoreSubmission = true;
         } else {
             this.checkNumberOfSubmissions(this.assignment, this.currentSubmission['studentID']);

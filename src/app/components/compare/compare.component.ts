@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AssignmentService} from '../../services/assignment.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {isUndefined} from 'util';
@@ -79,16 +79,16 @@ export class CompareComponent implements OnInit {
         this.compareService.submitForComparison(this.selectedFiles1, this.selectedFiles2)
             .subscribe(res => {
 
-                if (!isUndefined(res['body'])) {
+                    if (!isUndefined(res['body'])) {
 
-                    this.showLoader = false;
-                    this.runLoader();
-                    this.router.navigate(['result']);
-                } else {
-                    console.log("Happening...");
-                    this.showLoader = true;
-                    this.runLoader();
-                }
+                        this.showLoader = false;
+                        this.runLoader();
+                        this.router.navigate(['result']);
+                    } else {
+                        console.log("Happening...");
+                        this.showLoader = true;
+                        this.runLoader();
+                    }
 
                 }, err => console.log(err)
             );

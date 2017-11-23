@@ -1,0 +1,11 @@
+<div class="my-5">
+
+    <ul class="list-group">
+        <li *ngFor="let fileName of currentSubmission?.fileNames" class="list-group-item">
+            <a (click)="showPreview(fileName)" data-toggle="modal" data-target="#fileModal" class="mouse-pointer">{{fileName}}</a>
+            <span class="float-right">
+        <a (click)="showPreview(fileName)" data-toggle="modal" data-target="#fileModal" href>[Preview]</a>
+            </span>
+        </li>
+    </ul>
+</div>

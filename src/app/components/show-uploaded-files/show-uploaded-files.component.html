@@ -3,9 +3,9 @@
     <ul class="list-group">
         <li *ngFor="let fileName of currentSubmission?.fileNames; let i = index;" class="list-group-item">
 
-       <input type="checkbox" (change)="selectedFiles(fileName, currentSubmission?.filePaths[i])"
-              [checked]="selectedStudent.fileNames.indexOf(fileName) > -1"> &nbsp;
-        <a (click)="selectedFiles(fileName, currentSubmission?.filePaths[i])" class="mouse-pointer">{{fileName}}</a>
+            <input type="checkbox" (change)="selectedFiles(fileName, currentSubmission?.filePaths[i])"
+                   [checked]="selectedStudent.fileNames.indexOf(fileName) > -1"> &nbsp;
+            <a (click)="selectedFiles(fileName, currentSubmission?.filePaths[i])" class="mouse-pointer">{{fileName}}</a>
             <span class="float-right">
         <a (click)="showPreview(fileName)" data-toggle="modal" data-target="#fileModal" href>[Preview]</a>
             </span>
