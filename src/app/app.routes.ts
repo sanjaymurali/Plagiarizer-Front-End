@@ -7,6 +7,7 @@ import {CompareComponent} from "./components/compare/compare.component";
 import {ShowUploadedFilesComponent} from "./components/show-uploaded-files/show-uploaded-files.component";
 import {SelectStudentComponent} from "./components/select-student/select-student.component";
 import {AssignmentResolver} from "./services/assignment.resolver.service";
+import {ResultComponent} from "./components/result/result.component";
 
 const appRoutes: Routes = [
     {
@@ -27,6 +28,10 @@ const appRoutes: Routes = [
         resolve: {
             assignment: AssignmentResolver
         }
+    },
+    {
+        path: 'result',
+        component: ResultComponent
     },
     {
         path: '**',

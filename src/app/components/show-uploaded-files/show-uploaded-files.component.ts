@@ -12,7 +12,7 @@ import {NotifyService} from '../../services/notify.service';
 })
 export class ShowUploadedFilesComponent implements OnChanges, OnInit {
 
-    selectedStudent: { 'studentID': number, 'fileNames': string[] };
+    selectedStudent: { 'studentID': number, 'studentName': string, 'fileNames': string[], 'filePaths': string[] };
     currentSubmission: any;
 
     @Input() submission: any;
@@ -28,7 +28,9 @@ export class ShowUploadedFilesComponent implements OnChanges, OnInit {
         this.currentSubmission = changes.submission.currentValue;
         this.selectedStudent = {
             studentID: this.currentSubmission['studentID'],
-            fileNames: []
+            studentName: this.currentSubmission['studentName'],
+            fileNames: [],
+            filePaths: []
         };
     }
 
@@ -42,13 +44,14 @@ export class ShowUploadedFilesComponent implements OnChanges, OnInit {
         this.notifyService.pushPreviewData(selectedFileForPreview);
     }
 
-    selectedFiles(fileName: string) {
-
+    selectedFiles(fileName: string, filePath) {
         const indexOfFileName = this.selectedStudent.fileNames.findIndex(filename => filename === fileName);
         if (indexOfFileName === -1) { // add file to the array
             this.selectedStudent.fileNames.push(fileName);
+            this.selectedStudent.filePaths.push(filePath);
         } else {
             this.selectedStudent.fileNames.splice(indexOfFileName, 1);
+            this.selectedStudent.filePaths.splice(indexOfFileName, 1);
         }
 
         this.selectedFilesEmitter.emit(this.selectedStudent);

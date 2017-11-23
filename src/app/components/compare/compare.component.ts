@@ -1,14 +1,10 @@
-import {
-    AfterContentChecked,
-    AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, OnChanges, OnInit, QueryList,
-    ViewChild,
-    ViewChildren
-} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {AssignmentService} from '../../services/assignment.service';
-import {SelectStudentComponent} from "../select-student/select-student.component";
-import {ActivatedRoute} from "@angular/router";
-import {ShowUploadedFilesComponent} from "../show-uploaded-files/show-uploaded-files.component";
-import {isUndefined} from "util";
+import {ActivatedRoute, Router} from '@angular/router';
+import {isUndefined} from 'util';
+import {CompareService} from '../../services/compare.service';
+
+declare var $: any;
 
 @Component({
     selector: 'app-compare',
@@ -23,13 +19,17 @@ export class CompareComponent implements OnInit {
     selectedFiles1: any;
     selectedFiles2: any;
 
-    compareCheck: boolean = true;
+    compareCheck = true;
 
-    constructor(private assignmentService: AssignmentService, private route: ActivatedRoute) {
+    showLoader = false;
+
+    constructor(private assignmentService: AssignmentService,
+                private router: Router,
+                private route: ActivatedRoute,
+                private compareService: CompareService) {
     }
 
     ngOnInit() {
-        console.log(this.route.snapshot.data.assignment)
         this.assignmentService.setAssignmentLocally(this.route.snapshot.data.assignment);
         this.disableCompareCheck(this.selectedFiles1, this.selectedFiles2);
     }
@@ -76,7 +76,40 @@ export class CompareComponent implements OnInit {
     }
 
     compare() {
+        this.compareService.submitForComparison(this.selectedFiles1, this.selectedFiles2)
+            .subscribe(res => {
 
-        // Wire here to hit the backend
+                if (!isUndefined(res['body'])) {
+
+                    this.showLoader = false;
+                    this.runLoader();
+                    this.router.navigate(['result']);
+                } else {
+                    console.log("Happening...");
+                    this.showLoader = true;
+                    this.runLoader();
+                }
+
+                }, err => console.log(err)
+            );
+    }
+
+    // jQuery used here to add/remove CSS styles
+    runLoader() {
+        if (this.showLoader) {
+            $('.compare-component').css({
+                'pointer-events': 'none',
+                'cursor': 'default',
+                'opacity': 0.1
+            });
+        } else {
+            $('.compare-component').css({
+                'opacity': '',
+                'pointer-events': '',
+                'cursor': ''
+            });
+        }
+
+
     }
 }

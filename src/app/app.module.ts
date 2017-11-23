@@ -24,6 +24,8 @@ import {AssignmentResolver} from './services/assignment.resolver.service';
 import {SelectStudentComponent} from './components/select-student/select-student.component';
 import {PreviewFileComponent} from './components/preview-file/preview-file.component';
 import {FilterStudentPipe} from './pipes/filter-student.pipe';
+import {CompareService} from "./services/compare.service";
+import { ResultComponent } from './components/result/result.component';
 
 @NgModule({
     declarations: [
@@ -40,7 +42,8 @@ import {FilterStudentPipe} from './pipes/filter-student.pipe';
         CompareComponent,
         SelectStudentComponent,
         PreviewFileComponent,
-        FilterStudentPipe
+        FilterStudentPipe,
+        ResultComponent
     ],
     imports: [
         BrowserModule,
@@ -48,7 +51,7 @@ import {FilterStudentPipe} from './pipes/filter-student.pipe';
         FormsModule,
         appRoutesModule
     ],
-    providers: [NotifyService, AssignmentService, AssignmentResolver],
+    providers: [NotifyService, AssignmentService, AssignmentResolver, CompareService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
