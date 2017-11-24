@@ -80,9 +80,10 @@ export class CompareComponent implements OnInit {
             .subscribe(res => {
 
                     if (!isUndefined(res['body'])) {
-
+                        console.log(res['body']);
                         this.showLoader = false;
                         this.runLoader();
+                        //localStorage.setItem("result", )
                         this.router.navigate(['result']);
                     } else {
                         console.log("Happening...");
