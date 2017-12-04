@@ -20,8 +20,8 @@ export class CompareComponent implements OnInit {
     selectedFiles2: any;
 
     compareCheck = true;
-
     showLoader = false;
+    errorComparing = false;
 
     constructor(private assignmentService: AssignmentService,
                 private router: Router,
@@ -79,10 +79,10 @@ export class CompareComponent implements OnInit {
     compare() {
         this.compareService.submitForComparison(this.selectedFiles1, this.selectedFiles2)
             .subscribe(res => {
-
                     if (!isUndefined(res['body'])) {
                         const body = res['body'];
                         if (body.success) {
+                            this.errorComparing = false;
                             this.showLoader = false;
                             this.runLoader();
                             localStorage.setItem('result', this.parseArray(body['result']))
@@ -93,8 +93,11 @@ export class CompareComponent implements OnInit {
                         this.showLoader = true;
                         this.runLoader();
                     }
-
-                }, err => console.log(err)
+                }, err => {
+                this.errorComparing = true;
+                this.showLoader = false;
+                this.runLoader();
+                }
             );
     }
 
@@ -119,10 +122,7 @@ export class CompareComponent implements OnInit {
 
     parseArray(json): string {
         // remove "[" and "]"
-
         json = json.substring(1, json.length - 1);
-
-
         return json;
     }
 

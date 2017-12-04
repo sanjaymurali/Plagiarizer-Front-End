@@ -1,4 +1,4 @@
-<div class="compare-component">
+<div *ngIf="!errorComparing" class="compare-component">
     <div class="row">
         <div class="col-md-6 border-right">
             <app-select-student (eventEmitterStudentID)="fromFirstComponentStudentID($event)"
@@ -12,10 +12,18 @@
         </div>
     </div>
 
-    <button type="button" class="mx-auto btn w-50 btn-primary btn-block mb-3" [disabled]="compareCheck"
+    <button type="button" class="mx-auto btn w-50 btn-primary btn-block mb-3 pd-compare-button" [disabled]="compareCheck"
             (click)="compare()">
         Compare
     </button>
+</div>
+
+<div *ngIf="errorComparing">
+    <div class="my-3">
+        <div class="alert alert-danger" role="alert">
+            Error in Comparing!
+        </div>
+    </div>
 </div>
 
 <div *ngIf="showLoader" class="compare-loader">Loading...</div>

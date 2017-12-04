@@ -17,8 +17,8 @@
 <div *ngIf="!noSubmissions && !needMoreSubmission">
     <div class="my-3">
         <div class="dropdown mt-2">
-            <span class="border-info" *ngIf="onlyOneToShow">
-                {{currentSubmission?.studentName}}
+            <span class="pd-one-student" *ngIf="onlyOneToShow">
+                <h2 class="text-primary font-italic">{{currentSubmission?.studentName}}</h2>
             </span>
             <button class="btn btn-info form-control"
                     *ngIf="!onlyOneToShow"

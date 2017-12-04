@@ -1,17 +1,17 @@
 <div class="my-5">
 
     <ul class="list-group">
-        <li *ngFor="let fileName of currentSubmission?.fileNames; let i = index;" class="list-group-item">
+        <li *ngFor="let fileName of currentSubmission?.fileNames; let i = index;" class="list-group-item pd-upload-files">
 
             <input type="checkbox" (change)="selectedFiles(fileName, currentSubmission?.filePaths[i])"
                    [checked]="selectedStudent.fileNames.indexOf(fileName) > -1"> &nbsp;
             <a (click)="selectedFiles(fileName, currentSubmission?.filePaths[i])" class="mouse-pointer">{{fileName}}</a>
             <span class="float-right">
-        <a (click)="showPreview(fileName)" data-toggle="modal" data-target="#fileModal" href>[Preview]</a>
+        <a (click)="showPreview(fileName)" class="pd-preview-file" data-toggle="modal" data-target="#fileModal" href>[Preview]</a>
             </span>
         </li>
     </ul>
-    <div class="mt-2 ml-4 text-info">
+    <div class="mt-2 ml-4 text-info pd-selected-files-for-student">
         {{selectedStudent?.fileNames.length}} files selected of {{currentSubmission?.studentName}}
     </div>
 </div>

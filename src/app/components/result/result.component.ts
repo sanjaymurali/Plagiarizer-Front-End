@@ -30,6 +30,7 @@ export class ResultComponent implements OnInit {
 
     compareAgain() {
         localStorage.clear();
+        this.compareService.selectedStudents = null;
         this.router.navigate(['/select']);
     }
 
