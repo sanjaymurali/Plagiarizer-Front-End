@@ -29,6 +29,7 @@ export class CompareComponent implements OnInit {
                 private compareService: CompareService) {
     }
 
+
     ngOnInit() {
         this.assignmentService.setAssignmentLocally(this.route.snapshot.data.assignment);
         this.disableCompareCheck(this.selectedFiles1, this.selectedFiles2);
@@ -80,11 +81,13 @@ export class CompareComponent implements OnInit {
             .subscribe(res => {
 
                     if (!isUndefined(res['body'])) {
-                        console.log(res['body']);
-                        this.showLoader = false;
-                        this.runLoader();
-                        //localStorage.setItem("result", )
-                        this.router.navigate(['result']);
+                        const body = res['body'];
+                        if (body.success) {
+                            this.showLoader = false;
+                            this.runLoader();
+                            localStorage.setItem('result', this.parseArray(body['result']))
+                            this.router.navigate(['result']);
+                        }
                     } else {
                         console.log("Happening...");
                         this.showLoader = true;
@@ -113,4 +116,15 @@ export class CompareComponent implements OnInit {
 
 
     }
+
+    parseArray(json): string {
+        // remove "[" and "]"
+
+        json = json.substring(1, json.length - 1);
+
+
+        return json;
+    }
+
+
 }

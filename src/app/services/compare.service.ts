@@ -22,7 +22,6 @@ export class CompareService {
             headers: new HttpHeaders({'Content-Type': 'application/json'}),
             reportProgress: true,
         });
-
         return this.$http.request(req);
     }
 
@@ -37,6 +36,22 @@ export class CompareService {
 
     set selectedStudents(value: any) {
         this._selectedStudents = value;
+    }
+
+    getResult() {
+        const resultLocalStorage = localStorage.getItem('result');
+
+        if (!isNullOrUndefined(resultLocalStorage)) {
+            const resultsString = resultLocalStorage.split(',');
+            const resultInts = [];
+            for (let i = 0; i < resultsString.length; i++) {
+                resultInts[i] = parseFloat(resultsString[i]);
+            }
+
+            return resultInts;
+        }
+
+        return null;
     }
 
 }

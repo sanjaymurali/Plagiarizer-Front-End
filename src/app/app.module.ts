@@ -24,9 +24,10 @@ import {AssignmentResolver} from './services/assignment.resolver.service';
 import {SelectStudentComponent} from './components/select-student/select-student.component';
 import {PreviewFileComponent} from './components/preview-file/preview-file.component';
 import {FilterStudentPipe} from './pipes/filter-student.pipe';
-import {CompareService} from "./services/compare.service";
+import {CompareService} from './services/compare.service';
 import {ResultComponent} from './components/result/result.component';
 import {ShowSelectedFilesComponent} from './components/show-selected-files/show-selected-files.component';
+import {RouterModule} from "@angular/router";
 
 @NgModule({
     declarations: [

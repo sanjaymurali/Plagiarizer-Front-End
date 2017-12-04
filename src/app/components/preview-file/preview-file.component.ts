@@ -3,6 +3,7 @@ import {AssignmentService} from '../../services/assignment.service';
 import {NotifyService} from "../../services/notify.service";
 import "rxjs/add/operator/mergeMap";
 import "rxjs/add/operator/do";
+import {isNullOrUndefined} from "util";
 
 @Component({
     selector: 'app-preview-file',
@@ -26,8 +27,14 @@ export class PreviewFileComponent implements OnInit {
             .do(response => temp = response)
             .flatMap(response => this.assignmentService.getFile(temp['studentID'], temp['fileName']))
             .subscribe(res => {
+
                 this.previewData.fileName = temp['fileName'];
                 this.previewData.fileContent = res + '';
-            }, err => console.log(err));
+
+            }, err => {
+                this.previewData.fileName = "Not Found!";
+                this.previewData.fileContent = 'File Not Found!';
+                console.log(err);
+            });
     }
 }
