@@ -1,7 +1,7 @@
 import {browser, by, element} from 'protractor';
 import * as path from 'path';
 
-describe('Compare Page', () => {
+describe('Upload Page', () => {
 
     beforeEach(() => {
         browser.get('/');

@@ -1,15 +1,11 @@
 import {browser, by, element} from 'protractor';
 import * as path from 'path';
 
-describe('Upload Page', () => {
+describe('Compare Page', () => {
 
     beforeEach(() => {
-        browser.get('/');
-        const navbar = element(by.css('.navbar'));
-
-
-            browser.get('/select');
-
+        browser.get('/select');
+        browser.waitForAngularEnabled(true);
     });
 
     beforeAll(() => {
