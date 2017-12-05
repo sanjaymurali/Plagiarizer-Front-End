@@ -27,7 +27,7 @@ export class UploadProgressComponent implements OnInit {
                         this.fileUploaded = true
                     , 3000);
             }
-        }, err => console.log('errr', err));
+        }, err => console.log('Error from ProgressService', err));
     }
 
 }

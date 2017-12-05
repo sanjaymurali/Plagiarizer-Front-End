@@ -34,7 +34,6 @@ export class PreviewFileComponent implements OnInit {
             }, err => {
                 this.previewData.fileName = "Not Found!";
                 this.previewData.fileContent = 'File Not Found!';
-                console.log(err);
             });
     }
 }

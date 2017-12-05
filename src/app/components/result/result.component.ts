@@ -24,8 +24,6 @@ export class ResultComponent implements OnInit {
         if (isNullOrUndefined(this.selectedStudents) && isNullOrUndefined(this.result)) {
             this.noStudents = true;
         }
-        console.log(this.selectedStudents);
-        console.log(this.result);
     }
 
     compareAgain() {
