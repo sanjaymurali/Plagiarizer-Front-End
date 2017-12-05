@@ -6,7 +6,7 @@
     </div>
 </div>
 <div *ngIf="!noStudents">
-    <div class="text-danger mt-3">Result of comparing {{selectedStudents.students[0].studentName}} and {{selectedStudents.students[1].studentName}}</div>
+    <div class="text-danger mt-3 pd-result-title">Result of comparing {{selectedStudents.students[0].studentName}} and {{selectedStudents.students[1].studentName}}</div>
     <div class="row">
         <app-show-selected-files class="col-md-6 border-right" [currentSubmission]="selectedStudents.students[0]"></app-show-selected-files>
         <app-show-selected-files class="col-md-6" [currentSubmission]="selectedStudents.students[1]"></app-show-selected-files>
@@ -36,7 +36,7 @@
             </div>
         </div>
         <br/>
-        <div class="lcs-result">
+        <div class="overall-result">
             <div >Average</div>
 
             <div class="progress-bar progress-bar-striped bg-warning progress-bar-animated" [style.width]="result[3].toFixed(2) +'%'" role="progressbar"
