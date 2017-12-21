@@ -1,4 +1,8 @@
-**Welcome to Plagiarizer!**
+# Plagiarizer Front-End
+
+Note: This is the Front-End of the Plagiarizer Application. The Plagiarizer is hosted at `http://plagiarizer.herokuapp.com`
+
+Wish to see how Plagiarizer helps detection works? Navigate to `https://github.com/sanjaymurali/Plagiarizer`
 
 To run the Application:
 1. You need to install NodeJS v9 and Python 2.7. Set environment path for both
